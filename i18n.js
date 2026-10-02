@@ -11,6 +11,7 @@ const I18N = {
     monthNames: ["January","February","March","April","May","June","July","August","September","October","November","December"],
 
     introTitle: "Before You Begin",
+    introDefinitionHeading: "Clear definition of a Mortgage / Home Loan",
     introParagraph1: "A home loan (mortgage) is a loan you take out from a bank to buy a house. The bank pays the purchase price to the seller (in this case, the developer), and you then repay that amount to the bank in monthly installments, plus interest charged by the bank for providing the loan.",
     introParagraph2: "This calculator will ask you some questions about your income and expenses. It is fully confidential — we do not store any of the information you enter, and we do not collect your name, ID number, or any other identifying details.",
     introParagraph3: "We are not a financial institution. This calculator is a simple, rough estimation tool only, and has no bearing whatsoever on any actual mortgage application with a bank. It is intended purely to give you a general idea of what to expect.",
@@ -109,6 +110,7 @@ const I18N = {
     monthNames: ["Mutarama","Gashyantare","Werurwe","Mata","Gicurasi","Kamena","Nyakanga","Kanama","Nzeri","Ukwakira","Ugushyingo","Ukuboza"],
 
     introTitle: "Mbere yo Gutangira",
+    introDefinitionHeading: "Insobanuro Yumvikana ku Nguzanyo y'Inzu (Mortgage)",
     introParagraph1: "Inguzanyo y'inzu (mortgage) ni inguzanyo ufata muri banki kugira ngo ugure inzu. Banki yishyura uwagurishaga inzu (muri iki gihe, umwubatsi/umugurisha), nawe ukaza kwishyura banki buri kwezi, hiyongeraho inyungu banki iba yashyizeho kubera gutanga iyo nguzanyo.",
     introParagraph2: "Iki gikoresho kizakubaza ibibazo bijyanye n'umushahara wawe n'amafaranga usohora. Ibyo wasubije ni ibanga rikomeye — ntidubika amakuru wandika, kandi ntidusaba amazina yawe, indangamuntu, cyangwa andi makuru amenyesha uwo uri we.",
     introParagraph3: "Ntabwo turi urwego rw'imari (banki). Iki gikoresho ni uburyo bworoshye bwo gutanga igereranyo gusa, kandi nta ngaruka na kimwe gifite ku busabe nyabwo uzatanga muri banki. Intego yacyo ni ugufasha kumenya gusa icyo wakwitega.",

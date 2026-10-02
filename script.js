@@ -65,6 +65,7 @@
   // IDs of static text elements that map 1:1 to an I18N key.
   const STATIC_TEXT_MAP = {
     "intro-title": "introTitle",
+    "intro-definition-heading": "introDefinitionHeading",
     "intro-paragraph-1": "introParagraph1",
     "intro-paragraph-2": "introParagraph2",
     "intro-paragraph-3": "introParagraph3",

@@ -74,6 +74,25 @@ body {
   text-align: center;
 }
 
+.lang-select-label {
+  text-align: center;
+  font-weight: 600;
+  color: var(--color-muted);
+  font-size: 0.85rem;
+  margin: 0 0 10px;
+}
+
+.intro-subheading {
+  color: #fff;
+  background: var(--color-accent);
+  display: inline-block;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0 0 10px;
+}
+
 .intro-card p {
   line-height: 1.6;
   color: var(--color-text);
