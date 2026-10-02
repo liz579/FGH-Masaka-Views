@@ -177,6 +177,49 @@ body {
   font-size: 1.05rem;
 }
 
+.cta-row {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.btn-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.btn-cta-primary {
+  background: var(--color-accent);
+  color: #fff;
+}
+
+.btn-cta-primary:hover {
+  background: #b38d3c;
+}
+
+.btn-cta-whatsapp {
+  background: #25d366;
+  color: #fff;
+}
+
+.btn-cta-whatsapp:hover {
+  background: #1ebe5a;
+}
+
+.whatsapp-icon {
+  flex-shrink: 0;
+}
+
 .layout {
   display: grid;
   grid-template-columns: 1.1fr 1fr;

@@ -21,6 +21,9 @@ const I18N = {
     mainTitle: "Masaka Views Mortgage Pre-Screen",
     mainSubtitle: "Get an instant, non-binding estimate of your monthly mortgage repayment and likelihood of bank approval.",
 
+    ctaSalesMap: "Go to Masaka Views Live Sales Map",
+    ctaWhatsapp: "Message us on WhatsApp",
+
     sectionHouseTitle: "1. House",
     labelTypology: "House typology",
     labelFinishing: "Finishing package",
@@ -119,6 +122,9 @@ const I18N = {
 
     mainTitle: "Isuzuma ry'Inguzanyo y'Inzu – Masaka Views",
     mainSubtitle: "Menya ako kanya igereranyo cy'amafaranga uzishyura buri kwezi ku nguzanyo y'inzu, n'amahirwe yo kwemererwa na banki (iki ni igereranyo gusa, si itangazo rifatika).",
+
+    ctaSalesMap: "Reba Ikarita y'Amazu Agurishwa ya Masaka Views",
+    ctaWhatsapp: "Twandikire kuri WhatsApp",
 
     sectionHouseTitle: "1. Inzu",
     labelTypology: "Ubwoko bw'inzu",

@@ -74,6 +74,8 @@
 
     "main-title": "mainTitle",
     "main-subtitle": "mainSubtitle",
+    "cta-sales-map": "ctaSalesMap",
+    "cta-whatsapp-text": "ctaWhatsapp",
     "section-house-title": "sectionHouseTitle",
     "label-typology": "labelTypology",
     "label-finishing": "labelFinishing",
