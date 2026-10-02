@@ -113,10 +113,10 @@ const I18N = {
     monthNames: ["Mutarama","Gashyantare","Werurwe","Mata","Gicurasi","Kamena","Nyakanga","Kanama","Nzeri","Ukwakira","Ugushyingo","Ukuboza"],
 
     introTitle: "Mbere yo Gutangira",
-    introDefinitionHeading: "Insobanuro Yumvikana ku Nguzanyo y'Inzu (Mortgage)",
-    introParagraph1: "Inguzanyo y'inzu (mortgage) ni inguzanyo ufata muri banki kugira ngo ugure inzu. Banki yishyura uwagurishaga inzu (muri iki gihe, umwubatsi/umugurisha), nawe ukaza kwishyura banki buri kwezi, hiyongeraho inyungu banki iba yashyizeho kubera gutanga iyo nguzanyo.",
-    introParagraph2: "Iki gikoresho kizakubaza ibibazo bijyanye n'umushahara wawe n'amafaranga usohora. Ibyo wasubije ni ibanga rikomeye — ntidubika amakuru wandika, kandi ntidusaba amazina yawe, indangamuntu, cyangwa andi makuru amenyesha uwo uri we.",
-    introParagraph3: "Ntabwo turi urwego rw'imari (banki). Iki gikoresho ni uburyo bworoshye bwo gutanga igereranyo gusa, kandi nta ngaruka na kimwe gifite ku busabe nyabwo uzatanga muri banki. Intego yacyo ni ugufasha kumenya gusa icyo wakwitega.",
+    introDefinitionHeading: "Ubusobanuro ku Nguzanyo y'Inzu (Mortgage)",
+    introParagraph1: "Inguzanyo y'inzu (mortgage) ni inguzanyo ufata muri banki kugira ngo ugure inzu. Banki yishyura uwugurisha inzu ( umwubatsi/umugurisha), nawe ukazishyura banki buri kwezi, hiyongeraho inyungu banki iba yashyizeho kunguzanyo iba yaratazwe.",
+    introParagraph2: "Iyi Mubazi ikubaza ibibazo bijyanye n'umushahara wawe n'amafaranga usohora. Ibyo wasubije bigirwa ibanga rikomeye — ntitubika amakuru washyizemo , kandi ntidusaba amazina yawe, indangamuntu, cyangwa andi makuru amenyesha uwo uri we.",
+    introParagraph3: "Ntabwo turi urwego rw'imari (banki). Iyi mubazi ni uburyo bworoshye bwo gutanga ikigereranyo gusa, kandi nta ngaruka nimwe igira ku busabe nyabwo uzatanga muri banki. Intego yayo ni ugufasha kumenya gusa icyo wakwitega mugihe waba wifuza gusaba inguzanyo yo kugura inzu.",
     introClosing: "Nyamuneka hitamo ururimi wifuza, hanyuma ukande 'Komeza' niba wemeye gukomeza.",
     continueButton: "Komeza",
 
