@@ -114,6 +114,12 @@ body {
   margin: 0 0 16px;
 }
 
+.intro-divider {
+  border: none;
+  border-top: 1px solid var(--color-border, #d8d8d8);
+  margin: 0 0 16px;
+}
+
 .intro-card .intro-closing {
   font-weight: 600;
   color: var(--color-primary-dark);
