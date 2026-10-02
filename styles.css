@@ -67,6 +67,21 @@ body {
   margin: auto;
 }
 
+.logo-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+}
+
+.logo-img {
+  height: 32px;
+  width: auto;
+  object-fit: contain;
+}
+
 .intro-card h1 {
   color: var(--color-primary-dark);
   font-size: 1.5rem;
