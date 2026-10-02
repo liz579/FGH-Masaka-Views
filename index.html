@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Masaka Views Mortgage Pre-Screen</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="page">
+  <header class="header">
+    <h1>Masaka Views Mortgage Pre-Screen</h1>
+    <p class="subtitle">Get an instant, non-binding estimate of your monthly mortgage repayment and likelihood of bank approval.</p>
+  </header>
+
+  <main class="layout">
+    <!-- ================= FORM ================= -->
+    <form id="calculator-form" class="card form-card">
+
+      <section class="form-section">
+        <h2>1. House</h2>
+
+        <label for="typology">House typology</label>
+        <select id="typology" name="typology" required></select>
+
+        <label for="finishing">Finishing package</label>
+        <select id="finishing" name="finishing" required></select>
+
+        <div class="line-item">
+          <span>House price (USD)</span>
+          <strong id="house-price-usd">—</strong>
+        </div>
+        <div class="line-item muted">
+          <span>Approximate house price (RWF)</span>
+          <strong id="house-price-rwf">—</strong>
+        </div>
+        <p class="note" id="exchange-rate-note"></p>
+      </section>
+
+      <section class="form-section">
+        <h2>2. Deposit</h2>
+        <label for="deposit">How much will you pay as a deposit? (RWF)</label>
+        <input type="number" id="deposit" name="deposit" min="0" step="1000" value="0" inputmode="numeric">
+
+        <div class="line-item">
+          <span>Mortgage amount needed (RWF)</span>
+          <strong id="mortgage-amount">—</strong>
+        </div>
+      </section>
+
+      <section class="form-section">
+        <h2>3. Household income &amp; expenses</h2>
+
+        <label for="income">Your monthly income (RWF)</label>
+        <input type="number" id="income" name="income" min="0" step="1000" value="0" inputmode="numeric">
+
+        <label class="checkbox-row">
+          <input type="checkbox" id="include-spouse">
+          Include my spouse's income
+        </label>
+
+        <div id="spouse-income-wrap" class="hidden">
+          <label for="spouse-income">Spouse's monthly income (RWF)</label>
+          <input type="number" id="spouse-income" name="spouse-income" min="0" step="1000" value="0" inputmode="numeric">
+        </div>
+
+        <label for="expenses">Approximate monthly expenses (RWF)</label>
+        <input type="number" id="expenses" name="expenses" min="0" step="1000" value="0" inputmode="numeric">
+
+        <fieldset class="radio-group">
+          <legend>Do you have any other loans?</legend>
+          <label><input type="radio" name="has-other-loans" value="no" checked> No</label>
+          <label><input type="radio" name="has-other-loans" value="yes"> Yes</label>
+        </fieldset>
+
+        <div id="other-loans-wrap" class="hidden">
+          <label for="other-loans-repayment">Total monthly repayment for other loans (RWF)</label>
+          <input type="number" id="other-loans-repayment" name="other-loans-repayment" min="0" step="1000" value="0" inputmode="numeric">
+        </div>
+      </section>
+
+      <section class="form-section">
+        <h2>4. Bank &amp; loan term</h2>
+
+        <label for="bank">Which bank would you like to apply with?</label>
+        <select id="bank" name="bank" required></select>
+        <p class="note" id="bank-terms-note"></p>
+
+        <label for="loan-years">Repayment period (years)</label>
+        <input type="number" id="loan-years" name="loan-years" min="1" step="1">
+      </section>
+
+    </form>
+
+    <!-- ================= RESULTS ================= -->
+    <section class="card results-card" id="results-card">
+      <h2>Your estimate</h2>
+
+      <div class="result-highlight">
+        <span class="result-label">Estimated monthly repayment</span>
+        <span class="result-value" id="result-monthly-payment">RWF 0</span>
+      </div>
+
+      <div id="approval-banner" class="approval-banner">
+        <span id="approval-text">Fill in the form to see your pre-screen result.</span>
+      </div>
+
+      <div id="coverage-warning" class="warning hidden"></div>
+
+      <table class="details-table">
+        <tbody>
+          <tr><td>House total (incl. finishing)</td><td id="detail-house-total">—</td></tr>
+          <tr><td>Deposit</td><td id="detail-deposit">—</td></tr>
+          <tr><td>Mortgage amount</td><td id="detail-mortgage">—</td></tr>
+          <tr><td>Bank</td><td id="detail-bank">—</td></tr>
+          <tr><td>Interest rate (annual)</td><td id="detail-rate">—</td></tr>
+          <tr><td>Repayment period</td><td id="detail-years">—</td></tr>
+          <tr><td>Total combined monthly income</td><td id="detail-total-income">—</td></tr>
+          <tr><td>Monthly expenses + other loans</td><td id="detail-outgoings">—</td></tr>
+          <tr><td>Available monthly income</td><td id="detail-available-income">—</td></tr>
+          <tr><td>Repayment / available income</td><td id="detail-ratio">—</td></tr>
+        </tbody>
+      </table>
+
+      <p class="disclaimer">
+        This tool provides a rough, non-binding estimate only, for initial pre-screening purposes.
+        Exchange rates fluctuate and the figures above are approximate. Actual mortgage approval,
+        interest rate, and terms remain at each bank's sole discretion following their own
+        full assessment and documentation process. You can change any selection above and the
+        estimate will update automatically.
+      </p>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>FGH &middot; Masaka Views</p>
+  </footer>
+</div>
+
+<script src="config.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
