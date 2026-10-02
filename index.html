@@ -9,9 +9,14 @@
 <body>
 
 <div class="page">
+  <div class="lang-toggle" role="group" aria-label="Language / Ururimi">
+    <button type="button" id="lang-en" class="lang-btn active">English</button>
+    <button type="button" id="lang-rw" class="lang-btn">Kinyarwanda</button>
+  </div>
+
   <header class="header">
-    <h1>Masaka Views Mortgage Pre-Screen</h1>
-    <p class="subtitle">Get an instant, non-binding estimate of your monthly mortgage repayment and likelihood of bank approval.</p>
+    <h1 id="main-title">Masaka Views Mortgage Pre-Screen</h1>
+    <p class="subtitle" id="main-subtitle">Get an instant, non-binding estimate of your monthly mortgage repayment and likelihood of bank approval.</p>
   </header>
 
   <main class="layout">
@@ -19,75 +24,75 @@
     <form id="calculator-form" class="card form-card">
 
       <section class="form-section">
-        <h2>1. House</h2>
+        <h2 id="section-house-title">1. House</h2>
 
-        <label for="typology">House typology</label>
+        <label for="typology" id="label-typology">House typology</label>
         <select id="typology" name="typology" required></select>
 
-        <label for="finishing">Finishing package</label>
+        <label for="finishing" id="label-finishing">Finishing package</label>
         <select id="finishing" name="finishing" required></select>
 
         <div class="line-item">
-          <span>House price (USD)</span>
+          <span id="label-house-price-usd">House price (USD)</span>
           <strong id="house-price-usd">—</strong>
         </div>
         <div class="line-item muted">
-          <span>Approximate house price (RWF)</span>
+          <span id="label-house-price-rwf">Approximate house price (RWF)</span>
           <strong id="house-price-rwf">—</strong>
         </div>
         <p class="note" id="exchange-rate-note"></p>
       </section>
 
       <section class="form-section">
-        <h2>2. Deposit</h2>
-        <label for="deposit">How much will you pay as a deposit? (RWF)</label>
-        <input type="number" id="deposit" name="deposit" min="0" step="1000" value="0" inputmode="numeric">
+        <h2 id="section-deposit-title">2. Deposit</h2>
+        <label for="deposit" id="label-deposit">How much will you pay as a deposit? (RWF)</label>
+        <input type="text" id="deposit" name="deposit" value="0" inputmode="numeric" autocomplete="off">
 
         <div class="line-item">
-          <span>Mortgage amount needed (RWF)</span>
+          <span id="label-mortgage-amount">Mortgage amount needed (RWF)</span>
           <strong id="mortgage-amount">—</strong>
         </div>
       </section>
 
       <section class="form-section">
-        <h2>3. Household income &amp; expenses</h2>
+        <h2 id="section-income-title">3. Household income &amp; expenses</h2>
 
-        <label for="income">Your monthly income (RWF)</label>
-        <input type="number" id="income" name="income" min="0" step="1000" value="0" inputmode="numeric">
+        <label for="income" id="label-income">Your monthly income (RWF)</label>
+        <input type="text" id="income" name="income" value="0" inputmode="numeric" autocomplete="off">
 
         <label class="checkbox-row">
           <input type="checkbox" id="include-spouse">
-          Include my spouse's income
+          <span id="label-include-spouse">Include my spouse's income</span>
         </label>
 
         <div id="spouse-income-wrap" class="hidden">
-          <label for="spouse-income">Spouse's monthly income (RWF)</label>
-          <input type="number" id="spouse-income" name="spouse-income" min="0" step="1000" value="0" inputmode="numeric">
+          <label for="spouse-income" id="label-spouse-income">Spouse's monthly income (RWF)</label>
+          <input type="text" id="spouse-income" name="spouse-income" value="0" inputmode="numeric" autocomplete="off">
         </div>
 
-        <label for="expenses">Approximate monthly expenses (RWF)</label>
-        <input type="number" id="expenses" name="expenses" min="0" step="1000" value="0" inputmode="numeric">
+        <label for="expenses" id="label-expenses">Approximate monthly expenses (RWF)</label>
+        <input type="text" id="expenses" name="expenses" value="0" inputmode="numeric" autocomplete="off">
 
         <fieldset class="radio-group">
-          <legend>Do you have any other loans?</legend>
-          <label><input type="radio" name="has-other-loans" value="no" checked> No</label>
-          <label><input type="radio" name="has-other-loans" value="yes"> Yes</label>
+          <legend id="label-other-loans-legend">Do you have any other loans?</legend>
+          <label><input type="radio" name="has-other-loans" value="no" checked> <span id="label-other-loans-no">No</span></label>
+          <label><input type="radio" name="has-other-loans" value="yes"> <span id="label-other-loans-yes">Yes</span></label>
         </fieldset>
 
         <div id="other-loans-wrap" class="hidden">
-          <label for="other-loans-repayment">Total monthly repayment for other loans (RWF)</label>
-          <input type="number" id="other-loans-repayment" name="other-loans-repayment" min="0" step="1000" value="0" inputmode="numeric">
+          <label for="other-loans-repayment" id="label-other-loans-repayment">Total monthly repayment for other loans (RWF)</label>
+          <input type="text" id="other-loans-repayment" name="other-loans-repayment" value="0" inputmode="numeric" autocomplete="off">
         </div>
       </section>
 
       <section class="form-section">
-        <h2>4. Bank &amp; loan term</h2>
+        <h2 id="section-bank-title">4. Bank &amp; loan term</h2>
 
-        <label for="bank">Which bank would you like to apply with?</label>
+        <label for="bank" id="label-bank">Which bank would you like to apply with?</label>
         <select id="bank" name="bank" required></select>
         <p class="note" id="bank-terms-note"></p>
 
-        <label for="loan-years">Repayment period (years)</label>
+        <label for="loan-years" id="label-loan-years">Repayment period (years)</label>
         <input type="number" id="loan-years" name="loan-years" min="1" step="1">
       </section>
 
@@ -95,10 +100,10 @@
 
     <!-- ================= RESULTS ================= -->
     <section class="card results-card" id="results-card">
-      <h2>Your estimate</h2>
+      <h2 id="results-title">Your estimate</h2>
 
       <div class="result-highlight">
-        <span class="result-label">Estimated monthly repayment</span>
+        <span class="result-label" id="result-label">Estimated monthly repayment</span>
         <span class="result-value" id="result-monthly-payment">RWF 0</span>
       </div>
 
@@ -110,20 +115,20 @@
 
       <table class="details-table">
         <tbody>
-          <tr><td>House total (incl. finishing)</td><td id="detail-house-total">—</td></tr>
-          <tr><td>Deposit</td><td id="detail-deposit">—</td></tr>
-          <tr><td>Mortgage amount</td><td id="detail-mortgage">—</td></tr>
-          <tr><td>Bank</td><td id="detail-bank">—</td></tr>
-          <tr><td>Interest rate (annual)</td><td id="detail-rate">—</td></tr>
-          <tr><td>Repayment period</td><td id="detail-years">—</td></tr>
-          <tr><td>Total combined monthly income</td><td id="detail-total-income">—</td></tr>
-          <tr><td>Monthly expenses + other loans</td><td id="detail-outgoings">—</td></tr>
-          <tr><td>Available monthly income</td><td id="detail-available-income">—</td></tr>
-          <tr><td>Repayment / available income</td><td id="detail-ratio">—</td></tr>
+          <tr><td id="detail-label-house-total">House total (incl. finishing)</td><td id="detail-house-total">—</td></tr>
+          <tr><td id="detail-label-deposit">Deposit</td><td id="detail-deposit">—</td></tr>
+          <tr><td id="detail-label-mortgage">Mortgage amount</td><td id="detail-mortgage">—</td></tr>
+          <tr><td id="detail-label-bank">Bank</td><td id="detail-bank">—</td></tr>
+          <tr><td id="detail-label-rate">Interest rate (annual)</td><td id="detail-rate">—</td></tr>
+          <tr><td id="detail-label-years">Repayment period</td><td id="detail-years">—</td></tr>
+          <tr><td id="detail-label-total-income">Total combined monthly income</td><td id="detail-total-income">—</td></tr>
+          <tr><td id="detail-label-outgoings">Monthly expenses + other loans</td><td id="detail-outgoings">—</td></tr>
+          <tr><td id="detail-label-available-income">Available monthly income</td><td id="detail-available-income">—</td></tr>
+          <tr><td id="detail-label-ratio">Repayment / available income</td><td id="detail-ratio">—</td></tr>
         </tbody>
       </table>
 
-      <p class="disclaimer">
+      <p class="disclaimer" id="disclaimer-text">
         This tool provides a rough, non-binding estimate only, for initial pre-screening purposes.
         Exchange rates fluctuate and the figures above are approximate. Actual mortgage approval,
         interest rate, and terms remain at each bank's sole discretion following their own
@@ -139,6 +144,7 @@
 </div>
 
 <script src="config.js"></script>
+<script src="i18n.js"></script>
 <script src="script.js"></script>
 </body>
 </html>

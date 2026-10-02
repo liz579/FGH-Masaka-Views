@@ -1,17 +1,22 @@
 /* ============================================================
    MASAKA VIEWS MORTGAGE PRE-SCREEN — LOGIC
    ============================================================
-   Reads data from MORTGAGE_CONFIG (config.js), wires up the
-   form, and recalculates the estimate live on every change.
+   Reads data from MORTGAGE_CONFIG (config.js) and text from
+   I18N (i18n.js), wires up the form, and recalculates the
+   estimate live on every change, in the selected language.
    ============================================================ */
 
 (function () {
   "use strict";
 
   const cfg = MORTGAGE_CONFIG;
+  let currentLang = "en";
 
   // ---- Element references ----
   const el = {
+    langEn: document.getElementById("lang-en"),
+    langRw: document.getElementById("lang-rw"),
+
     typology: document.getElementById("typology"),
     finishing: document.getElementById("finishing"),
     housePriceUsd: document.getElementById("house-price-usd"),
@@ -51,23 +56,109 @@
     detailRatio: document.getElementById("detail-ratio")
   };
 
+  // IDs of static text elements that map 1:1 to an I18N key.
+  const STATIC_TEXT_MAP = {
+    "main-title": "mainTitle",
+    "main-subtitle": "mainSubtitle",
+    "section-house-title": "sectionHouseTitle",
+    "label-typology": "labelTypology",
+    "label-finishing": "labelFinishing",
+    "label-house-price-usd": "labelHousePriceUsd",
+    "label-house-price-rwf": "labelHousePriceRwf",
+    "section-deposit-title": "sectionDepositTitle",
+    "label-deposit": "labelDeposit",
+    "label-mortgage-amount": "labelMortgageAmount",
+    "section-income-title": "sectionIncomeTitle",
+    "label-income": "labelIncome",
+    "label-include-spouse": "labelIncludeSpouse",
+    "label-spouse-income": "labelSpouseIncome",
+    "label-expenses": "labelExpenses",
+    "label-other-loans-legend": "labelOtherLoansLegend",
+    "label-other-loans-no": "labelOtherLoansNo",
+    "label-other-loans-yes": "labelOtherLoansYes",
+    "label-other-loans-repayment": "labelOtherLoansRepayment",
+    "section-bank-title": "sectionBankTitle",
+    "label-bank": "labelBank",
+    "label-loan-years": "labelLoanYears",
+    "results-title": "resultsTitle",
+    "result-label": "resultLabel",
+    "detail-label-house-total": "detailLabelHouseTotal",
+    "detail-label-deposit": "detailLabelDeposit",
+    "detail-label-mortgage": "detailLabelMortgage",
+    "detail-label-bank": "detailLabelBank",
+    "detail-label-rate": "detailLabelRate",
+    "detail-label-years": "detailLabelYears",
+    "detail-label-total-income": "detailLabelTotalIncome",
+    "detail-label-outgoings": "detailLabelOutgoings",
+    "detail-label-available-income": "detailLabelAvailableIncome",
+    "detail-label-ratio": "detailLabelRatio",
+    "disclaimer-text": "disclaimer"
+  };
+
   // ---- Formatting helpers ----
-  const rwfFormatter = new Intl.NumberFormat("en-US", { maximumFractionDigits: 0 });
-  const usdFormatter = new Intl.NumberFormat("en-US", { maximumFractionDigits: 0 });
+  // Comma-separated, no decimals, for both displayed results and live input typing.
+  const numberFormatter = new Intl.NumberFormat("en-US", { maximumFractionDigits: 0 });
+
+  function formatNumber(amount) {
+    return numberFormatter.format(Math.round(amount));
+  }
 
   function formatRwf(amount) {
-    return "RWF " + rwfFormatter.format(Math.round(amount));
+    return "RWF " + formatNumber(amount);
   }
 
   function formatUsd(amount) {
-    return "USD " + usdFormatter.format(Math.round(amount));
+    return "USD " + formatNumber(amount);
   }
 
   function formatPercent(fraction) {
     return (fraction * 100).toFixed(1) + "%";
   }
 
-  // ---- Populate static dropdowns ----
+  function formatMonthYear(isoDateString, lang) {
+    const date = new Date(isoDateString + "T00:00:00Z");
+    const monthName = I18N[lang].monthNames[date.getUTCMonth()];
+    return monthName + " " + date.getUTCFullYear();
+  }
+
+  function t(key) {
+    return I18N[currentLang][key];
+  }
+
+  // ---- Thousand-separator-aware number inputs ----
+  // These inputs are type="text" so commas can be shown while typing.
+  // The underlying numeric value is always whatever digits remain after
+  // stripping non-digit characters.
+  function parseFormattedNumber(value) {
+    const digitsOnly = (value || "").replace(/[^\d]/g, "");
+    if (digitsOnly === "") return 0;
+    const parsed = parseInt(digitsOnly, 10);
+    return isNaN(parsed) ? 0 : parsed;
+  }
+
+  function attachThousandsFormatting(inputEl) {
+    inputEl.addEventListener("input", () => {
+      const digitsOnly = inputEl.value.replace(/[^\d]/g, "");
+      inputEl.value = digitsOnly === "" ? "" : formatNumber(parseInt(digitsOnly, 10));
+      recalculate();
+    });
+  }
+
+  [el.deposit, el.income, el.spouseIncome, el.expenses, el.otherLoansRepayment].forEach(attachThousandsFormatting);
+
+  function readNumber(inputEl) {
+    return parseFormattedNumber(inputEl.value);
+  }
+
+  // ---- Populate dropdowns ----
+  function typologyLabel(typology) {
+    return t("typologyNames")[typology.id] || typology.name;
+  }
+
+  function finishingLabel(finishing) {
+    return t("finishingNames")[finishing.id] || finishing.name;
+  }
+
   function populateSelect(selectEl, items, labelFn) {
     selectEl.innerHTML = "";
     items.forEach((item) => {
@@ -78,27 +169,30 @@
     });
   }
 
-  populateSelect(el.typology, cfg.houseTypologies, (t) => t.name);
-  populateSelect(el.finishing, cfg.finishingPackages, (f) => f.name);
-  populateSelect(el.bank, cfg.banks, (b) => b.name);
+  function refreshSelectLabels(selectEl, items, labelFn) {
+    const previousValue = selectEl.value;
+    Array.from(selectEl.options).forEach((option, index) => {
+      option.textContent = labelFn(items[index]);
+    });
+    selectEl.value = previousValue;
+  }
 
-  el.exchangeRateNote.textContent =
-    "Converted at an approximate rate of 1 USD = " +
-    rwfFormatter.format(cfg.exchangeRate.usdToRwf) +
-    " RWF (as of " + cfg.exchangeRate.asOf + "). This rate fluctuates and is for estimation only.";
+  populateSelect(el.typology, cfg.houseTypologies, typologyLabel);
+  populateSelect(el.finishing, cfg.finishingPackages, finishingLabel);
+  populateSelect(el.bank, cfg.banks, (b) => b.name); // bank names are proper nouns, same in both languages
 
   // ---- Core calculations ----
 
   function getSelectedTypology() {
-    return cfg.houseTypologies.find((t) => t.id === el.typology.value);
+    return cfg.houseTypologies.find((item) => item.id === el.typology.value);
   }
 
   function getSelectedFinishing() {
-    return cfg.finishingPackages.find((f) => f.id === el.finishing.value);
+    return cfg.finishingPackages.find((item) => item.id === el.finishing.value);
   }
 
   function getSelectedBank() {
-    return cfg.banks.find((b) => b.id === el.bank.value);
+    return cfg.banks.find((item) => item.id === el.bank.value);
   }
 
   function getHouseTotalUsd() {
@@ -109,10 +203,6 @@
     return typology.essentialPriceUSD + addOn;
   }
 
-  function getHouseTotalRwf() {
-    return getHouseTotalUsd() * cfg.exchangeRate.usdToRwf;
-  }
-
   // Standard reducing-balance amortization monthly payment.
   function calculateMonthlyPayment(principal, annualRatePercent, years) {
     if (principal <= 0 || years <= 0) return 0;
@@ -121,11 +211,6 @@
     if (monthlyRate === 0) return principal / numPayments;
     const factor = Math.pow(1 + monthlyRate, numPayments);
     return principal * (monthlyRate * factor) / (factor - 1);
-  }
-
-  function readNumber(inputEl) {
-    const value = parseFloat(inputEl.value);
-    return isNaN(value) || value < 0 ? 0 : value;
   }
 
   function getHasOtherLoans() {
@@ -145,10 +230,19 @@
     if (!current || current <= 0 || current > bank.loanPeriodMaxYears) {
       el.loanYears.value = bank.loanPeriodMaxYears;
     }
-    el.bankTermsNote.textContent =
-      "Max term " + bank.loanPeriodMaxYears + " years \u2022 Max loan coverage " +
-      bank.maxLoanCoveragePercent + "% of house value \u2022 Interest rate " +
-      bank.interestRatePercent + "% per year.";
+    el.bankTermsNote.textContent = t("bankTermsNote")(bank);
+  }
+
+  function applyStaticTranslations() {
+    Object.keys(STATIC_TEXT_MAP).forEach((id) => {
+      const node = document.getElementById(id);
+      if (node) node.textContent = t(STATIC_TEXT_MAP[id]);
+    });
+    document.title = t("mainTitle");
+    el.exchangeRateNote.textContent = t("exchangeRateNote")(
+      formatNumber(cfg.exchangeRate.usdToRwf),
+      formatMonthYear(cfg.exchangeRate.asOf, currentLang)
+    );
   }
 
   function recalculate() {
@@ -156,7 +250,7 @@
     if (!bank) return;
 
     const houseTotalUsd = getHouseTotalUsd();
-    const houseTotalRwf = getHouseTotalUsd() * cfg.exchangeRate.usdToRwf;
+    const houseTotalRwf = houseTotalUsd * cfg.exchangeRate.usdToRwf;
 
     el.housePriceUsd.textContent = formatUsd(houseTotalUsd);
     el.housePriceRwf.textContent = "\u2248 " + formatRwf(houseTotalRwf);
@@ -175,10 +269,9 @@
     const maxLoanForBank = houseTotalRwf * (bank.maxLoanCoveragePercent / 100);
     if (mortgageAmount > maxLoanForBank) {
       const extraDepositNeeded = mortgageAmount - maxLoanForBank;
-      el.coverageWarning.textContent =
-        bank.name + " covers at most " + bank.maxLoanCoveragePercent + "% of the house value (" +
-        formatRwf(maxLoanForBank) + "). Based on your deposit, you would need to increase your " +
-        "deposit by about " + formatRwf(extraDepositNeeded) + ", or choose a different bank.";
+      el.coverageWarning.textContent = t("coverageWarning")(
+        bank.name, bank.maxLoanCoveragePercent, formatRwf(maxLoanForBank), formatRwf(extraDepositNeeded)
+      );
       el.coverageWarning.classList.remove("hidden");
     } else {
       el.coverageWarning.classList.add("hidden");
@@ -204,30 +297,40 @@
     el.detailMortgage.textContent = formatRwf(mortgageAmount);
     el.detailBank.textContent = bank.name;
     el.detailRate.textContent = bank.interestRatePercent + "%";
-    el.detailYears.textContent = years + " years";
+    el.detailYears.textContent = years + t("yearsSuffix");
     el.detailTotalIncome.textContent = formatRwf(totalIncome);
     el.detailOutgoings.textContent = formatRwf(outgoings);
     el.detailAvailableIncome.textContent = formatRwf(availableIncome);
-    el.detailRatio.textContent = isFinite(ratio) ? formatPercent(ratio) : "n/a";
+    el.detailRatio.textContent = isFinite(ratio) ? formatPercent(ratio) : t("naText");
 
     const maxRatio = cfg.maxRepaymentToAvailableIncomeRatio;
     el.approvalBanner.classList.remove("approved", "rejected");
 
     if (totalIncome <= 0) {
-      el.approvalText.textContent = "Enter your monthly income to see whether you are likely to be approved.";
+      el.approvalText.textContent = t("approvalNeedIncome");
     } else if (ratio <= maxRatio) {
       el.approvalBanner.classList.add("approved");
-      el.approvalText.textContent =
-        "Likely to qualify: the estimated repayment is " + formatPercent(ratio) +
-        " of your available monthly income (bank limit is " + formatPercent(maxRatio) + ").";
+      el.approvalText.textContent = t("approvedMessage")(formatPercent(ratio), formatPercent(maxRatio));
     } else {
       el.approvalBanner.classList.add("rejected");
-      el.approvalText.textContent =
-        "Unlikely to qualify as-is: the estimated repayment is " + formatPercent(ratio) +
-        " of your available monthly income, above the bank's " + formatPercent(maxRatio) +
-        " limit. Try a larger deposit, a longer term, a different bank, or a smaller house/finishing.";
+      el.approvalText.textContent = t("rejectedMessage")(formatPercent(ratio), formatPercent(maxRatio));
     }
   }
+
+  // ---- Language switching ----
+  function setLanguage(lang) {
+    currentLang = lang;
+    el.langEn.classList.toggle("active", lang === "en");
+    el.langRw.classList.toggle("active", lang === "rw");
+    refreshSelectLabels(el.typology, cfg.houseTypologies, typologyLabel);
+    refreshSelectLabels(el.finishing, cfg.finishingPackages, finishingLabel);
+    applyStaticTranslations();
+    syncLoanYearsToBank();
+    recalculate();
+  }
+
+  el.langEn.addEventListener("click", () => setLanguage("en"));
+  el.langRw.addEventListener("click", () => setLanguage("rw"));
 
   // ---- Event wiring ----
   function onBankChange() {
@@ -251,17 +354,13 @@
   el.bank.addEventListener("change", onBankChange);
   el.typology.addEventListener("change", recalculate);
   el.finishing.addEventListener("change", recalculate);
-  el.deposit.addEventListener("input", recalculate);
-  el.income.addEventListener("input", recalculate);
-  el.spouseIncome.addEventListener("input", recalculate);
-  el.expenses.addEventListener("input", recalculate);
-  el.otherLoansRepayment.addEventListener("input", recalculate);
   el.loanYears.addEventListener("input", recalculate);
 
   // Prevent the form's Enter-key default submit (no server to submit to).
   document.getElementById("calculator-form").addEventListener("submit", (e) => e.preventDefault());
 
   // ---- Initial state ----
+  applyStaticTranslations();
   syncLoanYearsToBank();
   recalculate();
 })();

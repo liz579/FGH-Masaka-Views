@@ -11,10 +11,11 @@ const MORTGAGE_CONFIG = {
 
   // Exchange rate used to convert the USD house total to RWF.
   // Update "usdToRwf" whenever the rate changes, and update
-  // "asOf" so visitors can see how current the rate is.
+  // "asOf" (YYYY-MM-01) so visitors can see how current the rate is.
+  // It is displayed as a month + year, e.g. "October 2026" / "Ukwakira 2026".
   exchangeRate: {
     usdToRwf: 1474,
-    asOf: "2025-01-01"
+    asOf: "2026-10-01"
   },
 
   // House typologies available at Masaka Views.
