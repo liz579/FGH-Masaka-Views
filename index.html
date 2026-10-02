@@ -8,7 +8,29 @@
 </head>
 <body>
 
-<div class="page">
+<!-- ================= INTRO / CONSENT SCREEN ================= -->
+<div class="intro-overlay" id="intro-screen">
+  <div class="intro-card">
+    <div class="lang-toggle" role="group" aria-label="Language / Ururimi">
+      <button type="button" id="intro-lang-en" class="lang-btn active">English</button>
+      <button type="button" id="intro-lang-rw" class="lang-btn">Kinyarwanda</button>
+    </div>
+
+    <h1 id="intro-title">Before You Begin</h1>
+
+    <p id="intro-paragraph-1">A home loan (mortgage) is a loan you take out from a bank to buy a house. The bank pays the purchase price to the seller (in this case, the developer), and you then repay that amount to the bank in monthly installments, plus interest charged by the bank for providing the loan.</p>
+
+    <p id="intro-paragraph-2">This calculator will ask you some questions about your income and expenses. It is fully confidential — we do not store any of the information you enter, and we do not collect your name, ID number, or any other identifying details.</p>
+
+    <p id="intro-paragraph-3">We are not a financial institution. This calculator is a simple, rough estimation tool only, and has no bearing whatsoever on any actual mortgage application with a bank. It is intended purely to give you a general idea of what to expect.</p>
+
+    <p id="intro-closing" class="intro-closing">Please select your preferred language, and click Continue if you are happy to proceed.</p>
+
+    <button type="button" id="intro-continue" class="btn-primary">Continue</button>
+  </div>
+</div>
+
+<div class="page hidden" id="main-app">
   <div class="lang-toggle" role="group" aria-label="Language / Ururimi">
     <button type="button" id="lang-en" class="lang-btn active">English</button>
     <button type="button" id="lang-rw" class="lang-btn">Kinyarwanda</button>

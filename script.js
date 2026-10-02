@@ -14,6 +14,12 @@
 
   // ---- Element references ----
   const el = {
+    introScreen: document.getElementById("intro-screen"),
+    mainApp: document.getElementById("main-app"),
+    introLangEn: document.getElementById("intro-lang-en"),
+    introLangRw: document.getElementById("intro-lang-rw"),
+    introContinue: document.getElementById("intro-continue"),
+
     langEn: document.getElementById("lang-en"),
     langRw: document.getElementById("lang-rw"),
 
@@ -58,6 +64,13 @@
 
   // IDs of static text elements that map 1:1 to an I18N key.
   const STATIC_TEXT_MAP = {
+    "intro-title": "introTitle",
+    "intro-paragraph-1": "introParagraph1",
+    "intro-paragraph-2": "introParagraph2",
+    "intro-paragraph-3": "introParagraph3",
+    "intro-closing": "introClosing",
+    "intro-continue": "continueButton",
+
     "main-title": "mainTitle",
     "main-subtitle": "mainSubtitle",
     "section-house-title": "sectionHouseTitle",
@@ -322,6 +335,8 @@
     currentLang = lang;
     el.langEn.classList.toggle("active", lang === "en");
     el.langRw.classList.toggle("active", lang === "rw");
+    el.introLangEn.classList.toggle("active", lang === "en");
+    el.introLangRw.classList.toggle("active", lang === "rw");
     refreshSelectLabels(el.typology, cfg.houseTypologies, typologyLabel);
     refreshSelectLabels(el.finishing, cfg.finishingPackages, finishingLabel);
     applyStaticTranslations();
@@ -331,6 +346,14 @@
 
   el.langEn.addEventListener("click", () => setLanguage("en"));
   el.langRw.addEventListener("click", () => setLanguage("rw"));
+  el.introLangEn.addEventListener("click", () => setLanguage("en"));
+  el.introLangRw.addEventListener("click", () => setLanguage("rw"));
+
+  // ---- Intro / consent screen ----
+  el.introContinue.addEventListener("click", () => {
+    el.introScreen.classList.add("hidden");
+    el.mainApp.classList.remove("hidden");
+  });
 
   // ---- Event wiring ----
   function onBankChange() {
