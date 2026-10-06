@@ -114,85 +114,87 @@ const I18N = {
 
     introTitle: "Mbere yo Gutangira",
     introDefinitionHeading: "Ubusobanuro ku Nguzanyo y'Inzu (Mortgage)",
-    introParagraph1: "Inguzanyo y'inzu (mortgage) ni inguzanyo ufata muri banki kugira ngo ugure inzu. Banki yishyura uwugurisha inzu ( umwubatsi/umugurisha), nawe ukazishyura banki buri kwezi, hiyongeraho inyungu banki iba yashyizeho kunguzanyo iba yaratazwe.",
-    introParagraph2: "Iyi Mubazi ikubaza ibibazo bijyanye n'umushahara wawe n'amafaranga usohora. Ibyo wasubije bigirwa ibanga rikomeye — ntitubika amakuru washyizemo , kandi ntidusaba amazina yawe, indangamuntu, cyangwa andi makuru amenyesha uwo uri we.",
-    introParagraph3: "Ntabwo turi urwego rw'imari (banki). Iyi mubazi ni uburyo bworoshye bwo gutanga ikigereranyo gusa, kandi nta ngaruka nimwe igira ku busabe nyabwo uzatanga muri banki. Intego yayo ni ugufasha kumenya gusa icyo wakwitega mugihe waba wifuza gusaba inguzanyo yo kugura inzu.",
-    introClosing: "Nyamuneka hitamo ururimi wifuza, hanyuma ukande 'Komeza' niba wemeye gukomeza.",
+    introParagraph1: "Inguzanyo y'inzu (mortgage) ni inguzanyo ufata muri banki kugira ngo ugure inzu. Banki yishyura ugurisha inzu (Muri uru rwego uwayubatse), nawe ukajya wishyura banki buri kwezi, hakiyongeraho inyungu banki iba yarashyize kunguzanyo yatanzwe.",
+    introParagraph2: "Iyi mubazi (calculator) ikubaza ibibazo bijyanye n'umushahara wawe n'amafaranga usohora. Ibisubizo byawe bigirwa ibanga. Ntitubika amakuru washyizemo, kandi ntidusaba amazina yawe, indangamuntu, cyangwa andi makuru agaragaza uwo uri we.",
+    introParagraph3: "Ntabwo turi urwego rw'imari (banki). Iyi mubazi n'uburyo bworoshye bwo gutanga ikigereranyo gusa, kandi nta ngaruka nimwe igira ku busabe nyabwo uzatanga muri banki. Intego yayo n'ugufasha kumenya gusa icyo wakwitega mugihe waba wifuza gusaba inguzanyo yo kugura inzu.",
+    introClosing: "Hitamo ururimi wifuza, hanyuma ukande 'Komeza' niba wemeye ibisobanuro.",
     continueButton: "Komeza",
 
     mainTitle: "Isuzuma ry'Inguzanyo y'Inzu – Masaka Views",
     mainSubtitle: "Menya ako kanya igereranyo cy'amafaranga uzishyura buri kwezi ku nguzanyo y'inzu, n'amahirwe yo kwemererwa na banki (iki ni igereranyo gusa, si itangazo rifatika).",
 
-    ctaSalesMap: "Reba Ikarita y'Amazu Agurishwa ya Masaka Views",
+    ctaSalesMap: "Reba Ikarita y'Amazu Agurishwa na Masaka Views",
     ctaWhatsapp: "Twandikire kuri WhatsApp",
 
     sectionHouseTitle: "1. Inzu",
     labelTypology: "Ubwoko bw'inzu",
-    labelFinishing: "Uburyo bwo kurangiza inzu",
+    labelFinishing: "Uburyo bwo gusoza inzu",
     labelHousePriceUsd: "Igiciro cy'inzu (Amadolari y'Amerika)",
-    labelHousePriceRwf: "Igiciro cy'inzu bigereranyo (Amafaranga y'u Rwanda)",
+    labelHousePriceRwf: "Igiciro cy'inzu ugereranyije (Amafaranga y'u Rwanda)",
 
     sectionDepositTitle: "2. Ubwishyu bwa mbere",
-    labelDeposit: "Ni angahe uzatanga nk'ubwishyu bwa mbere? (RWF)",
-    labelMortgageAmount: "Amafaranga y'inguzanyo akenewe (RWF)",
+    labelDeposit: "Uzishyura angahe bwa mbere? (RWF)",
+    labelMortgageAmount: "Inguzanyo ukeneye (RWF)",
 
-    sectionIncomeTitle: "3. Inyungu n'amafaranga asohoka mu rugo",
+    sectionIncomeTitle: "3. Amafaranga umuryango w'injiza n'asohoka",
     labelIncome: "Umushahara wawe wa buri kwezi (RWF)",
-    labelIncludeSpouse: "Shyiramo n'umushahara w'uwo mwashakanye",
-    labelSpouseIncome: "Umushahara w'uwo mwashakanye wa buri kwezi (RWF)",
-    labelExpenses: "Amafaranga asohoka buri kwezi (bigereranyo) (RWF)",
+    labelIncludeSpouse: "Shyiramo umushahara w'uwo mwashakanye",
+    labelSpouseIncome: "Umushahara w'uwo mwashakanye (niba ari ngombwa)",
+    labelExpenses: "Amafaranga asohoka buri kwezi (Ikigereranyo) (RWF)",
     labelOtherLoansLegend: "Waba ufite izindi nguzanyo?",
     labelOtherLoansNo: "Oya",
     labelOtherLoansYes: "Yego",
     labelOtherLoansRepayment: "Igiteranyo cy'amafaranga wishyura buri kwezi ku zindi nguzanyo (RWF)",
 
     sectionBankTitle: "4. Banki n'igihe cy'inguzanyo",
-    labelBank: "Ni iyihe banki wifuza gusaba inguzanyo?",
-    labelLoanYears: "Igihe cyo kwishyura (imyaka)",
+    labelBank: "Ni iyihe banki wifuza gusabamo inguzanyo?",
+    labelLoanYears: "Igihe cyo kwishyura inguzanyo (imyaka)",
 
-    resultsTitle: "Igereranyo cyawe",
-    resultLabel: "Amafaranga ugereranyo uzishyura buri kwezi",
+    resultsTitle: "Ikigereranyo cy'inguzanyo wemerewe",
+    resultLabel: "Ugereranyije buri kwezi uzajya wishyura",
     approvalIdle: "Uzuza iyi fishi kugira ngo urebe igisubizo cy'isuzuma ryawe.",
-    approvalNeedIncome: "Andika umushahara wawe wa buri kwezi kugira ngo urebe niba ushobora kwemererwa.",
+    approvalNeedIncome: "Andika umushahara wawe wa buri kwezi kugira ngo urebe inguzanyo wemerewe.",
 
-    detailLabelHouseTotal: "Igiteranyo cy'inzu (harimo uko izasozwa)",
-    detailLabelDeposit: "Ubwishyu bwa mbere",
+    detailLabelHouseTotal: "Igiciro cy'inzu irangiye",
+    detailLabelDeposit: "Ayo uzishyura bwa mbere",
     detailLabelMortgage: "Amafaranga y'inguzanyo",
     detailLabelBank: "Banki",
-    detailLabelRate: "Igipimo cy'inyungu (ku mwaka)",
+    detailLabelRate: "Inyungu ku mwaka",
     detailLabelYears: "Igihe cyo kwishyura",
     detailLabelTotalIncome: "Igiteranyo cy'umushahara wa buri kwezi",
     detailLabelOutgoings: "Amafaranga asohoka + izindi nguzanyo (buri kwezi)",
-    detailLabelAvailableIncome: "Amafaranga asigaye buri kwezi",
-    detailLabelRatio: "Igipimo cy'ubwishyu ku mafaranga asigaye",
+    detailLabelAvailableIncome: "Amafaranga asigara buri kwezi",
+    detailLabelRatio: "Ayo uzajya wishyura",
 
-    disclaimer: "Iki gikoresho gitanga igereranyo gusa, kitari itangazo rifatika, kigamije isuzuma rya mbere. " +
-      "Igipimo cy'ivunjisha gihinduka kandi imibare yerekanwe haruguru ni igereranyo. Kwemererwa inguzanyo, " +
-      "igipimo cy'inyungu, n'amabwiriza nyayo bizafatwa na buri banki ubwayo nyuma yo gusuzuma dosiye yawe " +
-      "yose. Ushobora guhindura amahitamo hejuru igihe cyose, kandi igereranyo kizahinduka ako kanya.",
+    disclaimer: "Iki gikoresho gitanga ikigereranyo gusa, ntago kigaragaza ukuri. Kigamije isuzuma rya mbere. " +
+      "Ivunjisha rirahindagurika kandi imibare yerekanwe haruguru ni ikigereranyo.\n\n" +
+      "Kwemererwa inguzanyo, inyungu, n'amabwiriza nyayo bigenwa na banki ubwayo nyuma yo gusuzuma dosiye yawe " +
+      "yose. Ushobora guhindura amakuru watanze hejuru igihe icyo aricyo cyose, kandi ikigereranyo gihinduka ako kanya.",
 
     yearsSuffix: " imyaka",
     naText: "ntibiboneka",
 
     typologyNames: {
-      "2bed-townhouse": "Inzu ifite ibyumba 2 byo kuraramo n'ubwiherero 1.5 (Townhouse)",
-      "3bed-townhouse": "Inzu ifite ibyumba 3 byo kuraramo n'ubwiherero 2.5 (Townhouse)",
-      "3bed-single-family": "Inzu ifite ibyumba 3 byo kuraramo n'ubwiherero 3 (Inzu yihariye)",
-      "4bed-single-family": "Inzu ifite ibyumba 4 byo kuraramo n'ubwiherero 3 (Inzu yihariye)"
+      "2bed-townhouse": "Inzu y'ibyumba 2 n'ubwiherero 1.5 (Townhouse)",
+      "3bed-townhouse": "Inzu y'ibyumba 3 n'ubwiherero 2.5 (Townhouse)",
+      "3bed-single-family": "Inzu y'ibyumba 3 n'ubwiherero 3 (Inzu iri ukwayo)",
+      "4bed-single-family": "Inzu y'ibyumba 4 n'ubwiherero 3 (Inzu iri ukwayo)"
     },
     finishingNames: {
-      "essential": "Nta na kimwe — Nshaka inzu y'ibanze (Essential)",
-      "standard": "Isanzwe (Standard)",
-      "luxe": "Iy'icyubahiro (Luxe)"
+      "essential": "Nta na kimwe, nshaka inzu y'ibanze (Essential)",
+      "standard": "Inzu isanzwe (Standard)",
+      "luxe": "Inzu ihebuje (Luxe)"
     },
 
     exchangeRateNote: function (rateFormatted, dateFormatted) {
-      return "Byavunjwe hakoreshejwe igipimo cy'igereranyo cya dolari 1 = " + rateFormatted +
-        " RWF (kuva " + dateFormatted + "). Iki gipimo gihinduka kandi gikoreshwa ku bw'igereranyo gusa.";
+      var contractedDate = dateFormatted.replace(/^U/, "");
+      contractedDate = contractedDate.charAt(0).toUpperCase() + contractedDate.slice(1);
+      return "Iyi mibare ishingiye ku gipimo cy'ikigereranyo cya 1 USD \u2248 " + rateFormatted +
+        " RWF, cyo mu " + contractedDate + ". Kubera ko igipimo cy'ivunjisha gishobora guhinduka, iki giciro ni ikigereranyo gusa.";
     },
     bankTermsNote: function (bank) {
-      return "Igihe ntarengwa imyaka " + bank.loanPeriodMaxYears + " \u2022 Igipimo ntarengwa inguzanyo itanga " +
-        bank.maxLoanCoveragePercent + "% by'agaciro k'inzu \u2022 Igipimo cy'inyungu " +
+      return "Igihe ntarengwa cyo kwishyura n'imyaka " + bank.loanPeriodMaxYears + " \u2022 Inguzanyo ntarengwa ni " +
+        bank.maxLoanCoveragePercent + "% by'agaciro k'inzu \u2022 inyungu ya " +
         bank.interestRatePercent + "% ku mwaka.";
     },
     coverageWarning: function (bankName, coveragePercent, maxLoanFormatted, extraFormatted) {

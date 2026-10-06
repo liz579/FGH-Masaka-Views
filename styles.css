@@ -430,6 +430,7 @@ input:focus {
   color: var(--color-muted);
   line-height: 1.5;
   margin: 0;
+  white-space: pre-line;
 }
 
 .footer {
