@@ -140,9 +140,10 @@
       <section class="form-section">
         <h2 id="section-bank-title">4. Bank &amp; loan term</h2>
 
-        <label for="bank" id="label-bank">Which bank would you like to apply with?</label>
-        <select id="bank" name="bank" required></select>
-        <p class="note" id="bank-terms-note"></p>
+        <fieldset class="radio-group bank-radio-group" id="bank-fieldset">
+          <legend id="label-bank">Which bank would you like to apply with?</legend>
+          <!-- Bank radio options are injected by script.js (see populateBankOptions) -->
+        </fieldset>
 
         <label for="loan-years" id="label-loan-years">Repayment period (years)</label>
         <input type="number" id="loan-years" name="loan-years" min="1" step="1">

@@ -41,8 +41,7 @@
     otherLoansWrap: document.getElementById("other-loans-wrap"),
     otherLoansRepayment: document.getElementById("other-loans-repayment"),
 
-    bank: document.getElementById("bank"),
-    bankTermsNote: document.getElementById("bank-terms-note"),
+    bankFieldset: document.getElementById("bank-fieldset"),
     loanYears: document.getElementById("loan-years"),
 
     resultMonthlyPayment: document.getElementById("result-monthly-payment"),
@@ -197,7 +196,49 @@
 
   populateSelect(el.typology, cfg.houseTypologies, typologyLabel);
   populateSelect(el.finishing, cfg.finishingPackages, finishingLabel);
-  populateSelect(el.bank, cfg.banks, (b) => b.name); // bank names are proper nouns, same in both languages
+
+  // Banks are rendered as radio buttons (not a <select>) so each bank's
+  // name and key terms (max term, coverage, rate) are both visible at once.
+  function getCheckedBankValue() {
+    const checked = el.bankFieldset.querySelector('input[name="bank"]:checked');
+    return checked ? checked.value : null;
+  }
+
+  function populateBankOptions() {
+    const previousValue = getCheckedBankValue();
+    el.bankFieldset.querySelectorAll(".bank-option").forEach((node) => node.remove());
+
+    cfg.banks.forEach((bank, index) => {
+      const label = document.createElement("label");
+      label.className = "bank-option";
+
+      const input = document.createElement("input");
+      input.type = "radio";
+      input.name = "bank";
+      input.value = bank.id;
+      input.required = true;
+      input.checked = previousValue ? bank.id === previousValue : index === 0;
+
+      const textWrap = document.createElement("span");
+      textWrap.className = "bank-option-text";
+
+      const nameSpan = document.createElement("span");
+      nameSpan.className = "bank-option-name";
+      nameSpan.textContent = bank.name; // bank names are proper nouns, same in both languages
+
+      const termsSpan = document.createElement("span");
+      termsSpan.className = "bank-option-terms";
+      termsSpan.textContent = t("bankTermsNote")(bank);
+
+      textWrap.appendChild(nameSpan);
+      textWrap.appendChild(termsSpan);
+      label.appendChild(input);
+      label.appendChild(textWrap);
+      el.bankFieldset.appendChild(label);
+    });
+  }
+
+  populateBankOptions();
 
   // ---- Core calculations ----
 
@@ -215,7 +256,7 @@
   }
 
   function getSelectedBank() {
-    return cfg.banks.find((item) => item.id === el.bank.value);
+    return cfg.banks.find((item) => item.id === getCheckedBankValue());
   }
 
   function getHouseTotalUsd() {
@@ -253,7 +294,6 @@
     if (!current || current <= 0 || current > bank.loanPeriodMaxYears) {
       el.loanYears.value = bank.loanPeriodMaxYears;
     }
-    el.bankTermsNote.textContent = t("bankTermsNote")(bank);
   }
 
   function applyStaticTranslations() {
@@ -371,6 +411,7 @@
     el.introLangRw.classList.toggle("active", lang === "rw");
     refreshSelectLabels(el.typology, cfg.houseTypologies, typologyLabel);
     refreshSelectLabels(el.finishing, cfg.finishingPackages, finishingLabel);
+    populateBankOptions();
     applyStaticTranslations();
     syncLoanYearsToBank();
     recalculate();
@@ -406,7 +447,7 @@
     });
   }
 
-  el.bank.addEventListener("change", onBankChange);
+  el.bankFieldset.addEventListener("change", onBankChange);
   el.typology.addEventListener("change", recalculate);
   el.finishing.addEventListener("change", recalculate);
   el.loanYears.addEventListener("input", recalculate);

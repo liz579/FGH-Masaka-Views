@@ -319,6 +319,55 @@ input:focus {
   width: auto;
 }
 
+.bank-radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.bank-option {
+  display: flex !important;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 0 !important;
+  padding: 12px 14px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.bank-option:hover {
+  border-color: var(--color-primary);
+}
+
+.bank-option:has(input:checked) {
+  border-color: var(--color-primary);
+  background: rgba(30, 86, 49, 0.06);
+}
+
+.bank-option input[type="radio"] {
+  margin-top: 4px;
+  flex-shrink: 0;
+}
+
+.bank-option-text {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.bank-option-name {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.bank-option-terms {
+  color: var(--color-muted);
+  font-size: 0.8rem;
+}
+
 .hidden {
   display: none !important;
 }
