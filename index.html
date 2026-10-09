@@ -193,6 +193,31 @@
   <footer class="footer">
     <p>FGH &middot; Masaka Views</p>
   </footer>
+
+  <!-- Hidden form for Netlify Forms detection. Never shown to users;
+       submitted silently in the background by script.js once the
+       visitor has entered meaningful data (see submitEstimateIfReady). -->
+  <form name="mortgage-estimates" data-netlify="true" netlify-honeypot="bot-field" hidden id="netlify-estimate-form">
+    <input type="hidden" name="form-name" value="mortgage-estimates">
+    <input type="text" name="bot-field" tabindex="-1" autocomplete="off">
+    <input type="text" name="language">
+    <input type="text" name="typology">
+    <input type="text" name="finishing">
+    <input type="text" name="housePriceUsd">
+    <input type="text" name="housePriceRwf">
+    <input type="text" name="deposit">
+    <input type="text" name="mortgageAmount">
+    <input type="text" name="monthlyIncome">
+    <input type="text" name="spouseIncome">
+    <input type="text" name="expenses">
+    <input type="text" name="otherLoansRepayment">
+    <input type="text" name="bank">
+    <input type="text" name="loanYears">
+    <input type="text" name="estimatedMonthlyPayment">
+    <input type="text" name="repaymentToIncomeRatio">
+    <input type="text" name="approvalStatus">
+    <input type="text" name="timestamp">
+  </form>
 </div>
 
 <script src="config.js"></script>

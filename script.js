@@ -59,7 +59,9 @@
     detailTotalIncome: document.getElementById("detail-total-income"),
     detailOutgoings: document.getElementById("detail-outgoings"),
     detailAvailableIncome: document.getElementById("detail-available-income"),
-    detailRatio: document.getElementById("detail-ratio")
+    detailRatio: document.getElementById("detail-ratio"),
+
+    netlifyForm: document.getElementById("netlify-estimate-form")
   };
 
   // IDs of static text elements that map 1:1 to an I18N key.
@@ -199,6 +201,11 @@
 
   // ---- Core calculations ----
 
+  // Snapshot of the most recently computed estimate, used for the silent
+  // background submission to Netlify Forms (see trySendEstimate below).
+  let lastComputed = null;
+  let lastSentSignature = null;
+
   function getSelectedTypology() {
     return cfg.houseTypologies.find((item) => item.id === el.typology.value);
   }
@@ -322,15 +329,37 @@
     const maxRatio = cfg.maxRepaymentToAvailableIncomeRatio;
     el.approvalBanner.classList.remove("approved", "rejected");
 
+    let approvalStatus = "incomplete";
     if (totalIncome <= 0) {
       el.approvalText.textContent = t("approvalNeedIncome");
     } else if (ratio <= maxRatio) {
       el.approvalBanner.classList.add("approved");
       el.approvalText.textContent = t("approvedMessage")(formatPercent(ratio), formatPercent(maxRatio));
+      approvalStatus = "approved";
     } else {
       el.approvalBanner.classList.add("rejected");
       el.approvalText.textContent = t("rejectedMessage")(formatPercent(ratio), formatPercent(maxRatio));
+      approvalStatus = "rejected";
     }
+
+    // Snapshot for the silent background submission (see trySendEstimate).
+    lastComputed = {
+      typology: el.typology.value,
+      finishing: el.finishing.value,
+      housePriceUsd: Math.round(houseTotalUsd),
+      housePriceRwf: Math.round(houseTotalRwf),
+      deposit: Math.round(deposit),
+      mortgageAmount: Math.round(mortgageAmount),
+      monthlyIncome: Math.round(income),
+      spouseIncome: Math.round(spouseIncome),
+      expenses: Math.round(expenses),
+      otherLoansRepayment: Math.round(otherLoansRepayment),
+      bank: bank.name,
+      loanYears: years,
+      estimatedMonthlyPayment: Math.round(monthlyPayment),
+      repaymentToIncomeRatio: isFinite(ratio) ? (ratio * 100).toFixed(1) + "%" : "n/a",
+      approvalStatus
+    };
   }
 
   // ---- Language switching ----
@@ -384,6 +413,54 @@
 
   // Prevent the form's Enter-key default submit (no server to submit to).
   document.getElementById("calculator-form").addEventListener("submit", (e) => e.preventDefault());
+
+  // ---- Anonymous background submission (Netlify Forms) ----
+  // No visible submit button: once the visitor has entered meaningful
+  // data (an income and a selected bank), their anonymised estimate is
+  // logged silently when they leave or switch away from the tab. No
+  // name, ID, or other identifying details are ever collected.
+  function hasMeaningfulData() {
+    return !!lastComputed && lastComputed.monthlyIncome > 0 && !!lastComputed.bank;
+  }
+
+  function buildEstimateFormBody() {
+    const params = new URLSearchParams();
+    params.append("form-name", "mortgage-estimates");
+    params.append("language", currentLang);
+    Object.keys(lastComputed).forEach((key) => {
+      params.append(key, String(lastComputed[key]));
+    });
+    params.append("timestamp", new Date().toISOString());
+    return params.toString();
+  }
+
+  function trySendEstimate() {
+    if (!hasMeaningfulData()) return;
+
+    // Dedupe on the computed values only (not the timestamp/language),
+    // so repeated tab switches with unchanged inputs don't re-submit.
+    const signature = currentLang + "|" + JSON.stringify(lastComputed);
+    if (signature === lastSentSignature) return;
+    lastSentSignature = signature;
+
+    const body = buildEstimateFormBody();
+    if (navigator.sendBeacon) {
+      const blob = new Blob([body], { type: "application/x-www-form-urlencoded" });
+      navigator.sendBeacon("/", blob);
+    } else {
+      fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body,
+        keepalive: true
+      }).catch(() => {});
+    }
+  }
+
+  document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "hidden") trySendEstimate();
+  });
+  window.addEventListener("pagehide", trySendEstimate);
 
   // ---- Initial state ----
   applyStaticTranslations();
