@@ -191,7 +191,7 @@ const I18N = {
     disclaimer: "Iki gikoresho gitanga ikigereranyo gusa, ntago kigaragaza ukuri. Kigamije isuzuma rya mbere. " +
       "Ivunjisha rirahindagurika kandi imibare yerekanwe haruguru ni ikigereranyo.\n\n" +
       "Kwemererwa inguzanyo, inyungu, n'amabwiriza nyayo bigenwa na banki ubwayo nyuma yo gusuzuma dosiye yawe " +
-      "yose. Ushobora guhindura amakuru watanze hejuru igihe icyo aricyo cyose, kandi ikigereranyo gihinduka ako kanya.",
+      "yose. Ushobora guhindura amakuru watanze hejuru igihe icyo aricyo cyose, hanyuma ukande 'Ongera ubare' kugira ngo urebe ikigereranyo gishya.",
 
     yearsSuffix: " imyaka",
     naText: "ntibiboneka",
