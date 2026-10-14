@@ -3,7 +3,8 @@
    ============================================================
    Reads data from MORTGAGE_CONFIG (config.js) and text from
    I18N (i18n.js), wires up the form, and recalculates the
-   estimate live on every change, in the selected language.
+   estimate only when the visitor clicks Calculate/Recalculate,
+   in the selected language.
    ============================================================ */
 
 (function () {
@@ -48,6 +49,12 @@
     approvalBanner: document.getElementById("approval-banner"),
     approvalText: document.getElementById("approval-text"),
     coverageWarning: document.getElementById("coverage-warning"),
+
+    calculateBtn: document.getElementById("calculate-btn"),
+
+    qualifiedCta: document.getElementById("qualified-cta"),
+    qualifiedCtaPrimary: document.getElementById("qualified-cta-primary"),
+    qualifiedCtaSecondary: document.getElementById("qualified-cta-secondary"),
 
     detailHouseTotal: document.getElementById("detail-house-total"),
     detailDeposit: document.getElementById("detail-deposit"),
@@ -109,7 +116,15 @@
     "detail-label-outgoings": "detailLabelOutgoings",
     "detail-label-available-income": "detailLabelAvailableIncome",
     "detail-label-ratio": "detailLabelRatio",
-    "disclaimer-text": "disclaimer"
+    "disclaimer-text": "disclaimer",
+
+    "qualified-cta-eyebrow": "qualifiedCtaEyebrow",
+    "qualified-cta-subtitle": "qualifiedCtaSubtitle",
+    "qualified-cta-heading": "qualifiedCtaHeading",
+    "qualified-cta-body": "qualifiedCtaBody",
+    "qualified-cta-primary-text": "qualifiedCtaPrimary",
+    "qualified-cta-secondary-text": "qualifiedCtaSecondary",
+    "qualified-cta-footnote": "qualifiedCtaFootnote"
   };
 
   // ---- Formatting helpers ----
@@ -157,7 +172,6 @@
     inputEl.addEventListener("input", () => {
       const digitsOnly = inputEl.value.replace(/[^\d]/g, "");
       inputEl.value = digitsOnly === "" ? "" : formatNumber(parseInt(digitsOnly, 10));
-      recalculate();
     });
   }
 
@@ -246,6 +260,15 @@
   // background submission to Netlify Forms (see trySendEstimate below).
   let lastComputed = null;
   let lastSentSignature = null;
+
+  // Whether Calculate has been clicked at least once (controls button
+  // label and whether to show the idle placeholder or a real result).
+  let hasCalculatedOnce = false;
+
+  // Tracks which qualified-CTA button(s) the visitor clicked, so it can
+  // be logged alongside their estimate. One of: "none", "find_home",
+  // "whatsapp", "both".
+  let ctaClicked = "none";
 
   function getSelectedTypology() {
     return cfg.houseTypologies.find((item) => item.id === el.typology.value);
@@ -382,6 +405,8 @@
       approvalStatus = "rejected";
     }
 
+    el.qualifiedCta.classList.toggle("hidden", approvalStatus !== "approved");
+
     // Snapshot for the silent background submission (see trySendEstimate).
     lastComputed = {
       typology: el.typology.value,
@@ -402,6 +427,48 @@
     };
   }
 
+  // Resets the results area to its placeholder state, shown before the
+  // visitor has clicked Calculate for the first time (or after switching
+  // language while idle).
+  function showIdleState() {
+    el.resultMonthlyPayment.textContent = "—";
+    el.detailHouseTotal.textContent = "—";
+    el.detailDeposit.textContent = "—";
+    el.detailMortgage.textContent = "—";
+    el.detailBank.textContent = "—";
+    el.detailRate.textContent = "—";
+    el.detailYears.textContent = "—";
+    el.detailTotalIncome.textContent = "—";
+    el.detailOutgoings.textContent = "—";
+    el.detailAvailableIncome.textContent = "—";
+    el.detailRatio.textContent = "—";
+    el.approvalBanner.classList.remove("approved", "rejected");
+    el.approvalText.textContent = t("approvalNeedIncome");
+    el.coverageWarning.classList.add("hidden");
+    el.qualifiedCta.classList.add("hidden");
+    lastComputed = null;
+  }
+
+  // Calls recalculate() if the visitor has already pressed Calculate at
+  // least once, otherwise keeps/resets the idle placeholder. Used when
+  // switching language, so we don't prematurely reveal a computed result.
+  function refreshResultsDisplay() {
+    if (hasCalculatedOnce) {
+      recalculate();
+    } else {
+      showIdleState();
+    }
+  }
+
+  function updateCalculateButtonLabel() {
+    el.calculateBtn.textContent = hasCalculatedOnce ? t("recalculateButton") : t("calculateButton");
+  }
+
+  function markCtaClicked(which) {
+    ctaClicked = ctaClicked === "none" || ctaClicked === which ? which : "both";
+    trySendEstimate();
+  }
+
   // ---- Language switching ----
   function setLanguage(lang) {
     currentLang = lang;
@@ -414,7 +481,8 @@
     populateBankOptions();
     applyStaticTranslations();
     syncLoanYearsToBank();
-    recalculate();
+    updateCalculateButtonLabel();
+    refreshResultsDisplay();
   }
 
   el.langEn.addEventListener("click", () => setLanguage("en"));
@@ -429,31 +497,38 @@
   });
 
   // ---- Event wiring ----
+  // Inputs no longer recalculate live — they only update dependent UI
+  // (e.g. showing/hiding the spouse income field) until the visitor
+  // explicitly clicks Calculate / Recalculate.
   function onBankChange() {
     syncLoanYearsToBank();
-    recalculate();
   }
 
   el.includeSpouse.addEventListener("change", () => {
     el.spouseIncomeWrap.classList.toggle("hidden", !el.includeSpouse.checked);
-    recalculate();
   });
 
   for (const radio of el.otherLoansRadios) {
     radio.addEventListener("change", () => {
       const hasOtherLoans = getHasOtherLoans();
       el.otherLoansWrap.classList.toggle("hidden", !hasOtherLoans);
-      recalculate();
     });
   }
 
   el.bankFieldset.addEventListener("change", onBankChange);
-  el.typology.addEventListener("change", recalculate);
-  el.finishing.addEventListener("change", recalculate);
-  el.loanYears.addEventListener("input", recalculate);
 
   // Prevent the form's Enter-key default submit (no server to submit to).
   document.getElementById("calculator-form").addEventListener("submit", (e) => e.preventDefault());
+
+  el.calculateBtn.addEventListener("click", () => {
+    recalculate();
+    hasCalculatedOnce = true;
+    updateCalculateButtonLabel();
+    trySendEstimate();
+  });
+
+  el.qualifiedCtaPrimary.addEventListener("click", () => markCtaClicked("find_home"));
+  el.qualifiedCtaSecondary.addEventListener("click", () => markCtaClicked("whatsapp"));
 
   // ---- Anonymous background submission (Netlify Forms) ----
   // No visible submit button: once the visitor has entered meaningful
@@ -471,6 +546,7 @@
     Object.keys(lastComputed).forEach((key) => {
       params.append(key, String(lastComputed[key]));
     });
+    params.append("ctaClicked", ctaClicked);
     params.append("timestamp", new Date().toISOString());
     return params.toString();
   }
@@ -478,9 +554,10 @@
   function trySendEstimate() {
     if (!hasMeaningfulData()) return;
 
-    // Dedupe on the computed values only (not the timestamp/language),
-    // so repeated tab switches with unchanged inputs don't re-submit.
-    const signature = currentLang + "|" + JSON.stringify(lastComputed);
+    // Dedupe on the computed values and CTA-click state (not the
+    // timestamp/language), so repeated tab switches with nothing new
+    // don't re-submit.
+    const signature = currentLang + "|" + JSON.stringify(lastComputed) + "|" + ctaClicked;
     if (signature === lastSentSignature) return;
     lastSentSignature = signature;
 
@@ -506,5 +583,7 @@
   // ---- Initial state ----
   applyStaticTranslations();
   syncLoanYearsToBank();
-  recalculate();
+  updateCalculateButtonLabel();
+  showIdleState();
 })();
+

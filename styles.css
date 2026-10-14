@@ -482,6 +482,114 @@ input:focus {
   white-space: pre-line;
 }
 
+.btn-calculate {
+  margin-top: 28px;
+}
+
+/* ---------------- Qualified CTA ---------------- */
+
+.qualified-cta {
+  background: var(--color-success-bg);
+  border: 1px solid rgba(30, 86, 49, 0.15);
+  border-radius: var(--radius);
+  padding: 20px 22px;
+  margin-bottom: 16px;
+}
+
+.qualified-cta-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.qualified-cta-icon {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  color: var(--color-primary-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.qualified-cta-eyebrow {
+  margin: 0;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--color-primary-dark);
+}
+
+.qualified-cta-subtitle {
+  margin: 2px 0 0;
+  font-size: 0.85rem;
+  color: var(--color-muted);
+}
+
+.qualified-cta-heading {
+  margin: 0 0 10px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--color-primary-dark);
+}
+
+.qualified-cta-body {
+  margin: 0 0 16px;
+  font-size: 0.9rem;
+  color: var(--color-muted);
+  line-height: 1.55;
+}
+
+.btn-qualified-primary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  background: var(--color-accent);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  padding: 14px 18px;
+  border-radius: 8px;
+  margin-bottom: 14px;
+  transition: background 0.15s ease;
+}
+
+.btn-qualified-primary:hover {
+  background: #b38d3c;
+}
+
+.qualified-cta-secondary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.88rem;
+  color: var(--color-primary);
+  margin-bottom: 10px;
+}
+
+.qualified-cta-secondary:hover {
+  text-decoration: underline;
+}
+
+.qualified-cta-footnote {
+  margin: 0;
+  font-size: 0.75rem;
+  color: var(--color-muted);
+  text-align: center;
+}
+
 .footer {
   text-align: center;
   color: var(--color-muted);

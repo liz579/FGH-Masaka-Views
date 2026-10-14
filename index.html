@@ -149,6 +149,7 @@
         <input type="number" id="loan-years" name="loan-years" min="1" step="1">
       </section>
 
+      <button type="button" id="calculate-btn" class="btn-primary btn-calculate">Calculate</button>
     </form>
 
     <!-- ================= RESULTS ================= -->
@@ -163,6 +164,32 @@
       <div id="approval-banner" class="approval-banner">
         <span id="approval-text">Fill in the form to see your pre-screen result.</span>
       </div>
+
+      <!-- Shown only when the estimate qualifies (see recalculate() in script.js) -->
+      <section id="qualified-cta" class="qualified-cta hidden">
+        <div class="qualified-cta-header">
+          <span class="qualified-cta-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+              <path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3z"/>
+            </svg>
+          </span>
+          <div>
+            <p class="qualified-cta-eyebrow" id="qualified-cta-eyebrow">Your next step starts here</p>
+            <p class="qualified-cta-subtitle" id="qualified-cta-subtitle">Your mortgage estimate looks promising.</p>
+          </div>
+        </div>
+        <h3 class="qualified-cta-heading" id="qualified-cta-heading">Your Masaka Views home could be closer than you think.</h3>
+        <p class="qualified-cta-body" id="qualified-cta-body">Based on the details you entered, your estimated mortgage repayment is within the selected bank's guideline. Let's help you find a home that fits your budget and understand how to move forward.</p>
+        <a href="https://www.fortisgreenhousing.com/live-sales-map" target="_blank" rel="noopener" class="btn-qualified-primary" id="qualified-cta-primary">
+          <span aria-hidden="true">&#8594;</span>
+          <span id="qualified-cta-primary-text">Find My Masaka Views Home</span>
+        </a>
+        <a href="https://wa.me/250795761245" target="_blank" rel="noopener" class="qualified-cta-secondary" id="qualified-cta-secondary">
+          <span aria-hidden="true">&#128172;</span>
+          <span id="qualified-cta-secondary-text">Prefer personal guidance? Talk to our team.</span>
+        </a>
+        <p class="qualified-cta-footnote" id="qualified-cta-footnote">Your result is an initial estimate, not a bank approval. Final lending decisions are made by the bank.</p>
+      </section>
 
       <div id="coverage-warning" class="warning hidden"></div>
 
@@ -217,6 +244,7 @@
     <input type="text" name="estimatedMonthlyPayment">
     <input type="text" name="repaymentToIncomeRatio">
     <input type="text" name="approvalStatus">
+    <input type="text" name="ctaClicked">
     <input type="text" name="timestamp">
   </form>
 </div>

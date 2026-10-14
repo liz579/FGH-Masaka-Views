@@ -48,6 +48,9 @@ const I18N = {
     labelBank: "Which bank would you like to apply with?",
     labelLoanYears: "Repayment period (years)",
 
+    calculateButton: "Calculate",
+    recalculateButton: "Recalculate",
+
     resultsTitle: "Your estimate",
     resultLabel: "Estimated monthly repayment",
     approvalIdle: "Fill in the form to see your pre-screen result.",
@@ -64,10 +67,18 @@ const I18N = {
     detailLabelAvailableIncome: "Available monthly income",
     detailLabelRatio: "Repayment / available income",
 
+    qualifiedCtaEyebrow: "Your next step starts here",
+    qualifiedCtaSubtitle: "Your mortgage estimate looks promising.",
+    qualifiedCtaHeading: "Your Masaka Views home could be closer than you think.",
+    qualifiedCtaBody: "Based on the details you entered, your estimated mortgage repayment is within the selected bank's guideline. Let's help you find a home that fits your budget and understand how to move forward.",
+    qualifiedCtaPrimary: "Find My Masaka Views Home",
+    qualifiedCtaSecondary: "Prefer personal guidance? Talk to our team.",
+    qualifiedCtaFootnote: "Your result is an initial estimate, not a bank approval. Final lending decisions are made by the bank.",
+
     disclaimer: "This tool provides a rough, non-binding estimate only, for initial pre-screening purposes. " +
       "Exchange rates fluctuate and the figures above are approximate. Actual mortgage approval, interest rate, " +
       "and terms remain at each bank's sole discretion following their own full assessment and documentation " +
-      "process. You can change any selection above and the estimate will update automatically.",
+      "process. You can change any selection above and click Recalculate to update your estimate.",
 
     yearsSuffix: " years",
     naText: "n/a",
@@ -150,6 +161,9 @@ const I18N = {
     labelBank: "Ni iyihe banki wifuza gusabamo inguzanyo?",
     labelLoanYears: "Igihe cyo kwishyura inguzanyo (imyaka)",
 
+    calculateButton: "Kubara",
+    recalculateButton: "Ongera ubare",
+
     resultsTitle: "Ikigereranyo cy'inguzanyo wemerewe",
     resultLabel: "Ugereranyije buri kwezi uzajya wishyura",
     approvalIdle: "Uzuza iyi fishi kugira ngo urebe igisubizo cy'isuzuma ryawe.",
@@ -165,6 +179,14 @@ const I18N = {
     detailLabelOutgoings: "Amafaranga asohoka + izindi nguzanyo (buri kwezi)",
     detailLabelAvailableIncome: "Amafaranga asigara buri kwezi",
     detailLabelRatio: "Ayo uzajya wishyura",
+
+    qualifiedCtaEyebrow: "Intambwe ikurikiyeho itangirira hano",
+    qualifiedCtaSubtitle: "Ikigereranyo cy'inguzanyo yawe kigaragara ko gishoboka.",
+    qualifiedCtaHeading: "Inzu yawe ya Masaka Views ishobora kuba hafi aho wari utekereza.",
+    qualifiedCtaBody: "Hashingiwe ku makuru watanze, ugereranyo w'amafaranga uzishyura buri kwezi ku nguzanyo ugenda neza n'amabwiriza ya banki wahisemo. Reka tugufashe kubona inzu ihuye n'ingengo yawe y'imari no kumenya uko wakwifashisha mu ntambwe zikurikira.",
+    qualifiedCtaPrimary: "Shakisha Inzu Yawe ya Masaka Views",
+    qualifiedCtaSecondary: "Ushaka ubufasha bwihariye? Vugana n'itsinda ryacu.",
+    qualifiedCtaFootnote: "Igisubizo cyawe ni ikigereranyo cya mbere gusa, ntabwo ari uko banki yemeye. Imyanzuro ya nyuma ifatwa na banki.",
 
     disclaimer: "Iki gikoresho gitanga ikigereranyo gusa, ntago kigaragaza ukuri. Kigamije isuzuma rya mbere. " +
       "Ivunjisha rirahindagurika kandi imibare yerekanwe haruguru ni ikigereranyo.\n\n" +
